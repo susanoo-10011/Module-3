@@ -20,11 +20,23 @@ namespace Итоговое_задание_3._7
             DayOfWeek day = (DayOfWeek)Convert.ToInt32(Console.ReadLine());
             Console.WriteLine($"Your favorite day is {day}");
 
-            Console.Write("When is your birthday? ");
-            string birthday = Console.ReadLine();
-            Console.WriteLine($"Your birthday: {birthday}");
+            Console.Write("Enter your birthdate (dd.MM.yyyy): ");
 
-            Console.ReadLine();
+            DateTime birthdate;
+            //пошаманил с ChatGPT. DateTime - это структура (structure) встроенного в .NET языка C#.
+            //Она предоставляет методы и свойства для работы с датами и временем в формате григорианского календаря.
+            while (true) // проверяет корректность введенных данных.
+            {
+                if (!DateTime.TryParseExact(Console.ReadLine(), "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out birthdate))
+                // Метод DateTime.TryParseExact() позволяет преобразовать строку, содержащую дату и время в указанном формате, в объект DateTime
+                    Console.WriteLine("You entered an incorrect date. Please try again: ");
+                else
+                {
+                    Console.WriteLine($"Your birthdate is {birthdate.ToShortDateString()}");
+                    break;
+                }
+            }
+            Console.ReadKey();
         }
     }
 }
